@@ -4,9 +4,9 @@
 // con los valores de tu proyecto en Supabase
 // ============================================================
 
-const SUPABASE_URL = 'https://ehczukvdbzbxgxrpexam.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVoY3p1a3ZkYnpieGd4cnBleGFtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1MTY2MzIsImV4cCI6MjA5NTA5MjYzMn0.o7R6ji1paBU2coHZByog1hWZ8sXzeWMHdN3CiKTWGXs';
-const INVITE_CODE = 'Tetonas'; // Cambia esto por tu código secreto
+const SUPABASE_URL = 'TU_SUPABASE_URL';
+const SUPABASE_ANON_KEY = 'TU_SUPABASE_ANON_KEY';
+const INVITE_CODE = 'EASYGYM2025'; // Cambia esto por tu código secreto
 
 const { createClient } = supabase;
 const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -98,7 +98,7 @@ async function doRegister() {
   const pass = v('reg-pass');
   const err = document.getElementById('reg-error');
   err.textContent = '';
-  if (code !== INVITE_CODE) { err.textContent = '⚠ Código de invitación incorrecto'; return; }
+  if (code.toLowerCase() !== INVITE_CODE.toLowerCase()) { err.textContent = '⚠ Código de invitación incorrecto'; return; }
   if (!name || !email || !pass) { err.textContent = 'Completa todos los campos'; return; }
   if (pass.length < 6) { err.textContent = 'La contraseña debe tener mínimo 6 caracteres'; return; }
   const { error } = await sb.auth.signUp({ email, password: pass, options: { data: { name } } });
