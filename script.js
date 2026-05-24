@@ -1,14 +1,13 @@
+import { createClient } from '@supabase/supabase-js';
+
 // ============================================================
 // EASYGYM — script.js
-// Reemplaza TU_SUPABASE_URL y TU_SUPABASE_ANON_KEY
-// con los valores de tu proyecto en Supabase
 // ============================================================
 
 const SUPABASE_URL = 'https://ehczukvdbzbxgxrpexam.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVoY3p1a3ZkYnpieGd4cnBleGFtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1MTY2MzIsImV4cCI6MjA5NTA5MjYzMn0.o7R6ji1paBU2coHZByog1hWZ8sXzeWMHdN3CiKTWGXs';
-const INVITE_CODE = 'TETONAS'; // Cambia esto por tu código secreto
+const INVITE_CODE = 'TETONAS';
 
-const { createClient } = supabase;
 const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ---- STATE ----
