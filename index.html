@@ -7,7 +7,64 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="EasyGym">
 <title>EasyGym</title>
-<link rel="stylesheet" href="./style.css">
+<style>
+700; flex-shrink: 0; }
+.feed-user-name { font-size: 14px; font-weight: 600; }
+.feed-user-time { font-size: 12px; color: var(--text3); }
+.feed-type-badge { margin-left: auto; }
+.feed-card-body { padding: 0 14px 12px; }
+.feed-card-text { font-size: 14px; color: var(--text2); margin-bottom: 10px; line-height: 1.5; }
+.feed-card-img { width: 100%; max-height: 320px; object-fit: cover; cursor: pointer; border-radius: var(--radius-sm); margin-bottom: 10px; }
+.feed-card-metrics { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.feed-metric-pill { background: var(--bg3); border: 0.5px solid var(--border2); border-radius: 99px; padding: 4px 10px; font-size: 12px; color: var(--text2); }
+.feed-metric-pill strong { color: var(--text); }
+.feed-actions { display: flex; gap: 6px; padding: 10px 14px; border-top: 0.5px solid var(--border); }
+.feed-action-btn { flex: 1; padding: 8px; border: none; background: transparent; color: var(--text3); font-size: 12px; font-weight: 600; cursor: pointer; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; gap: 5px; transition: all 0.15s; }
+.feed-action-btn:hover { background: var(--bg3); color: var(--text); }
+.feed-action-btn.reacted { color: var(--accent); }
+.feed-action-btn:active { transform: scale(0.96); }
+.reactions-bar { display: flex; gap: 6px; padding: 6px 14px; flex-wrap: wrap; }
+.reaction-chip { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; background: var(--bg3); border: 0.5px solid var(--border2); border-radius: 99px; font-size: 12px; cursor: pointer; transition: all 0.15s; }
+.reaction-chip.mine { background: var(--accent-bg); border-color: var(--accent); }
+.reaction-chip:active { transform: scale(0.95); }
+
+/* COMMENT MODAL */
+.comment-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 400; display: flex; align-items: flex-end; }
+.comment-modal-box { background: var(--bg2); border-radius: var(--radius) var(--radius) 0 0; width: 100%; max-width: 540px; margin: 0 auto; max-height: 80vh; display: flex; flex-direction: column; border-top: 0.5px solid var(--border2); }
+.comment-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 0.5px solid var(--border); }
+.comment-item { display: flex; gap: 8px; }
+.comment-avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--accent-bg); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+.comment-bubble { background: var(--bg3); border-radius: 0 var(--radius-sm) var(--radius-sm) var(--radius-sm); padding: 8px 12px; flex: 1; }
+.comment-name { font-size: 11px; font-weight: 600; color: var(--accent); margin-bottom: 2px; }
+.comment-text { font-size: 13px; color: var(--text2); line-height: 1.4; }
+.comment-time { font-size: 10px; color: var(--text3); margin-top: 3px; }
+.comment-input-wrap { display: flex; gap: 8px; padding: 12px 16px; border-top: 0.5px solid var(--border); }
+
+/* MISC */
+.empty { text-align: center; padding: 32px 16px; color: var(--text3); font-size: 14px; }
+.empty svg { width: 36px; height: 36px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; margin: 0 auto 10px; display: block; opacity: 0.4; }
+.divider { height: 0.5px; background: var(--border); margin: 14px 0; }
+.toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--bg4); border: 0.5px solid var(--border2); color: var(--text); padding: 11px 20px; border-radius: 99px; font-size: 13px; font-weight: 600; opacity: 0; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); z-index: 200; white-space: nowrap; box-shadow: var(--shadow); pointer-events: none; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.93); z-index: 300; align-items: center; justify-content: center; }
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 95vw; max-height: 90vh; object-fit: contain; border-radius: var(--radius); }
+.lightbox-close { position: fixed; top: 16px; right: 16px; background: var(--bg3); border: 0.5px solid var(--border2); color: var(--text); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; z-index: 301; }
+.tab-bar { display: flex; gap: 4px; margin-bottom: 14px; flex-wrap: wrap; }
+.tab-btn { padding: 6px 14px; border-radius: 99px; font-size: 12px; font-weight: 600; cursor: pointer; border: 0.5px solid var(--border2); background: var(--bg3); color: var(--text3); transition: all 0.15s; }
+.tab-btn.active { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); }
+.feel-btn, .rec-btn { flex: 1; padding: 9px 4px; border-radius: var(--radius-sm); font-size: 11px; font-weight: 600; cursor: pointer; border: 0.5px solid var(--border2); background: var(--bg3); color: var(--text2); transition: all 0.15s; text-align: center; }
+.feel-btn.active { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); }
+.rec-btn.active { background: var(--green-bg); border-color: var(--green); color: var(--green); }
+.feel-btn:active, .rec-btn:active { transform: scale(0.96); }
+.page-header { margin-bottom: 16px; }
+.page-title { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
+.page-sub { font-size: 13px; color: var(--text3); margin-top: 2px; }
+.trend-up { color: var(--green); } .trend-down { color: var(--red); }
+.spinner { width: 24px; height: 24px; border: 2.5px solid var(--border2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; margin: 20px auto; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+</style>
 </head>
 <body>
 
