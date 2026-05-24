@@ -3,9 +3,10 @@
 // ============================================================
 
 const SUPABASE_URL = 'https://ehczukvdbzbxgxrpexam.supabase.co';
-const SUPABASE_ANON_KEY = 'TU_SUPABASE_ANON_KEY';
+const SUPABASE_ANON_KEY = 'aquí tu key real eyJhbGci...';
 const INVITE_CODE = 'Tetonas';
 
+const { createClient } = supabase;
 const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ---- STATE ----
