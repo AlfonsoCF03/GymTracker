@@ -80,13 +80,21 @@ function switchAuthTab(tab, btn) {
 // AUTH
 // ============================================================
 async function doLogin() {
+  await sb.auth.signOut();
   const email = v('login-email');
   const pass = v('login-pass');
   const err = document.getElementById('login-error');
   err.textContent = '';
   if (!email || !pass) { err.textContent = 'Completa todos los campos'; return; }
-  const { error } = await sb.auth.signInWithPassword({ email, password: pass });
+  const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
   if (error) { err.textContent = 'Correo o contraseña incorrectos'; return; }
+  if (data?.user) {
+    currentUser = data.user;
+    await loadProfile();
+    document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    initApp();
+  }
 }
 
 async function doRegister() {
