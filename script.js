@@ -3,7 +3,7 @@
 // ============================================================
 
 const SUPABASE_URL = 'https://ehczukvdbzbxgxrpexam.supabase.co';
-const SUPABASE_ANON_KEY = 'aquí tu key real eyJhbGci...';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVoY3p1a3ZkYnpieGd4cnBleGFtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1MTY2MzIsImV4cCI6MjA5NTA5MjYzMn0.o7R6ji1paBU2coHZByog1hWZ8sXzeWMHdN3CiKTWGXs';
 const INVITE_CODE = 'Tetonas';
 
 const { createClient } = supabase;
